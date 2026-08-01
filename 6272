@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Security Awareness Program</title>
 
+<HTA:APPLICATION
+    ID="SecurityAwareness"
+    APPLICATIONNAME="Security Awareness Program"
+    BORDER="thin"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    SHOWINTASKBAR="yes"
+    SINGLEINSTANCE="yes"
+    SYSMENU="yes"
+    WINDOWSTATE="normal"
+    SCROLL="yes"
+/>
+
 <style>
 *{
   box-sizing:border-box;
