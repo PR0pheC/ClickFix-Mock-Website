@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Awareness Program</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:"Segoe UI",Roboto,Arial,sans-serif;
+  background:#eef1f6;
+  color:#1f2733;
+  min-height:100vh;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding:32px 16px;
+  overflow-y:auto;
+  -webkit-font-smoothing:antialiased;
+}
+
+.card{
+  width:100%;
+  max-width:720px;
+  background:#fff;
+  border-radius:18px;
+  overflow:hidden;
+  margin:20px 0;
+  box-shadow:
+    0 24px 60px -18px rgba(20,40,80,.35),
+    0 6px 16px rgba(20,40,80,.10);
+}
+
+.top{
+  background:#005BAC;
+  color:#fff;
+  padding:26px 34px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.logo{
+  width:56px;
+  height:56px;
+  border-radius:12px;
+  background:#fff;
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+  font-size:22px;
+  color:#005BAC;
+}
+
+.co{
+  font-size:12px;
+  font-weight:600;
+  line-height:1.4;
+}
+
+.co b{
+  display:block;
+  font-size:15px;
+  font-weight:700;
+}
+
+.hero{
+  padding:30px 34px 6px;
+}
+
+.flag{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:#fdeaea;
+  color:#b42318;
+  border:1px solid #f4c2c2;
+  border-radius:999px;
+  padding:6px 14px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.4px;
+  margin-bottom:16px;
+}
+
+.flag .d{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#e24b4a;
+}
+
+h1{
+  font-size:30px;
+  font-weight:800;
+  color:#12233b;
+  margin-bottom:10px;
+}
+
+.lead{
+  font-size:15px;
+  line-height:1.6;
+  color:#44546a;
+}
+
+.body{
+  padding:18px 34px 8px;
+}
+
+.note{
+  background:#f5f8fc;
+  border:1px solid #e2eaf3;
+  border-radius:12px;
+  padding:16px 18px;
+  font-size:14px;
+  line-height:1.6;
+  color:#2c3b4f;
+  margin-bottom:22px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.tell{
+  border:1px solid #e7ebf0;
+  border-radius:12px;
+  padding:15px 16px;
+  background:#fff;
+}
+
+.tell .t{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-size:14px;
+  font-weight:700;
+  color:#12233b;
+  margin-bottom:5px;
+}
+
+.tell .t i{
+  width:26px;
+  height:26px;
+  border-radius:7px;
+  background:#e8f1fb;
+  color:#005BAC;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-style:normal;
+  font-weight:800;
+}
+
+.tell p{
+  font-size:12.5px;
+  line-height:1.5;
+  color:#5a6b80;
+}
+
+.rule{
+  margin:22px 0 4px;
+  background:#005BAC;
+  color:#fff;
+  border-radius:12px;
+  padding:18px 20px;
+}
+
+.rule .k{
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:1.2px;
+  margin-bottom:6px;
+}
+
+.rule .v{
+  font-size:17px;
+  font-weight:700;
+  line-height:1.4;
+}
+
+.foot{
+  padding:20px 34px 26px;
+  border-top:1px solid #eef1f5;
+  margin-top:20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+.report{
+  font-size:13px;
+  color:#44546a;
+  line-height:1.5;
+}
+
+.ok{
+  background:#e9f6ee;
+  color:#166534;
+  border:1px solid #bfe3cb;
+  border-radius:10px;
+  padding:10px 16px;
+  font-size:13px;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+@media(max-width:560px){
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  h1{
+    font-size:24px;
+  }
+
+  .top,
+  .hero,
+  .body,
+  .foot{
+    padding-left:20px;
+    padding-right:20px;
+  }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="top">
+  <div class="logo">IT</div>
+  <div class="co">
+    <b>Security Awareness Program</b>
+    Cyber Security Awareness & Training<br>
+    Building a safer digital workplace
+  </div>
+</div>
+
+<div class="hero">
+
+<div class="flag">
+<span class="d"></span>
+SECURITY AWARENESS DRILL
+</div>
+
+<h1>…relax. This was a security-awareness drill.</h1>
+
+<p class="lead">
+You just pasted and ran a command you did not write — the exact move behind
+a real attack technique called <b>ClickFix</b>. This one was harmless.
+A real one would not be.
+</p>
+
+</div>
+
+
+<div class="body">
+
+<div class="note">
+In the seconds it took this page to appear, a <b>real</b> ClickFix command
+could have silently installed an info-stealer or handed remote control of
+this machine to an attacker — with <b>no window, no warning, nothing visible</b>.
+And notice: you could not read what you pasted.
+<b>That unreadable blob was the red flag.</b>
+</div>
+
+
+<div class="grid">
+
+<div class="tell">
+<div class="t"><i>1</i> A page told you to run something</div>
+<p>Real verification never asks you to open Run, PowerShell or a terminal. That instruction alone is the attack.</p>
+</div>
+
+<div class="tell">
+<div class="t"><i>2</i> You couldn't read the command</div>
+<p>Long encoded commands and hidden scripts exist to hide intent. Unreadable means dangerous.</p>
+</div>
+
+<div class="tell">
+<div class="t"><i>3</i> It bypassed safety controls</div>
+<p>Security protections should not be disabled to complete a normal verification step.</p>
+</div>
+
+<div class="tell">
+<div class="t"><i>4</i> It felt urgent</div>
+<p>"Fix immediately" or "verification failed" messages create pressure so you act before thinking.</p>
+</div>
+
+</div>
+
+
+<div class="rule">
+<div class="k">GOLDEN RULE</div>
+<div class="v">
+Never paste a command into the Run box, PowerShell or a terminal unless you typed it yourself.
+</div>
+</div>
+
+</div>
+
+
+<div class="foot">
+
+<div class="report">
+Think you ran something real?
+<b>Report it to your security team immediately.</b><br>
+Early reporting helps reduce impact.
+</div>
+
+<div class="ok">
+✓ Demo complete
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
